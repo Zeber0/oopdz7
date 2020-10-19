@@ -3,9 +3,10 @@
 #include <list>
 #include <vector>
 #include <iterator>
+#include <string>
 using namespace std;
 class Kladovshikov {
-public:
+public:	
 	list<int*> l1;
 	Kladovshikov();
 	virtual void Print();
@@ -24,6 +25,8 @@ private:
 	vector<Kladovshikov*> a;
 public:
 	DB();
+	DB operator=(const DB& obj);
+
 	void add(Kladovshikov* b);
 	void print();
 	~DB();

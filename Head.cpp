@@ -11,7 +11,7 @@ void Kladovshikov::Print()
 {
 		
 	for (list<int*>::const_iterator it = l1.begin(); it != l1.end(); ++it) {
-		cout <<** it <<" ";
+		cout << **it << " ";
 	}
 }
 
@@ -19,7 +19,7 @@ void Kladovshikov::Print()
 
 Kladovshikov::~Kladovshikov()
 {
-	l1.erase(l1.begin(), l1.end());
+	for (int* e : l1) { delete e; }
 }
 
 Dmitry::Dmitry() {
@@ -32,11 +32,20 @@ void Dmitry::Print()
 	copy(l2.begin(), l2.end(), ostream_iterator<string>(cout, " "));
 }
 Dmitry::~Dmitry(){
-	l2.erase(l2.begin(), l2.end());
+	l2.resize(0);
+	l2.clear();
 }
 
 DB::DB()
 {
+}
+DB DB::operator=(const DB& obj)
+{
+	if (this == &obj) {
+		return *this;
+	}
+	a = obj.a;
+	return *this;
 }
 void DB::add(Kladovshikov* b)
 {
@@ -48,10 +57,17 @@ void DB::print()
 	for (int i = 0; i < 2; i++) {
 		a[i]->Print();
 		delete a[i];
+		
 	}
 }
 
 
 DB::~DB()
-{	
+{
+	/*
+	for (int i = 0; i < 2; i++) 
+	{
+		delete a[i];
+	}
+	*/
 }

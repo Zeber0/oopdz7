@@ -4,13 +4,17 @@
 
 void main()
 {
-	DB db1, db2;
-	db1.add(new Kladovshikov);
-	db1.add(new Dmitry);
-	db2 = db1;
-	db2.print();
+	{
+		DB db1, db2;
+		db1.add(new Kladovshikov);
+		db1.add(new Dmitry);
+		db2 = db1;
+		db2.print();
+}
+	
 	_CrtDumpMemoryLeaks();
 }
+
 
 // Запуск программы: CTRL+F5 или меню "Отладка" > "Запуск без отладки"
 // Отладка программы: F5 или меню "Отладка" > "Запустить отладку"
