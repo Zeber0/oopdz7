@@ -10,8 +10,7 @@ void main()
 		db1.add(new Dmitry);
 		db2 = db1;
 		db2.print();
-}
-	
+	}
 	_CrtDumpMemoryLeaks();
 }
 

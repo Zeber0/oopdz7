@@ -1,4 +1,4 @@
-#include "Head.h"
+﻿#include "Head.h"
 
 Kladovshikov::Kladovshikov()
 {
@@ -10,16 +10,30 @@ Kladovshikov::Kladovshikov()
 void Kladovshikov::Print()
 {
 		
-	for (list<int*>::const_iterator it = l1.begin(); it != l1.end(); ++it) {
+	for (list<int*>::iterator it = l1.begin(); it != l1.end(); ++it) {
 		cout << **it << " ";
 	}
 }
 
+Kladovshikov::Kladovshikov(const Kladovshikov& cop)
+{
+	for (list<int*>::const_iterator it = cop.l1.begin(); it != cop.l1.end(); it++)
+	{
 
+		l1.push_back(new int(**it));
+	}
+}
+
+Kladovshikov* Kladovshikov::Copy()
+{
+	return new Kladovshikov(*this);
+}
 
 Kladovshikov::~Kladovshikov()
 {
-	for (int* e : l1) { delete e; }
+	for (list<int*>::const_iterator it = l1.begin(); it != l1.end(); ++it) {
+		delete *it;
+	}
 }
 
 Dmitry::Dmitry() {
@@ -27,25 +41,29 @@ Dmitry::Dmitry() {
 	l2.push_back("Green");
 	l2.push_back("Blue");
 }
+Dmitry::Dmitry(const Dmitry& cop)
+{
+	for (list<string>::const_iterator it = cop.l2.begin(); it != cop.l2.end(); it++)
+	{
+
+		l2.push_back(*it);
+	}
+}
+Dmitry* Dmitry::Copy()
+{
+	return new Dmitry(*this);
+}
 void Dmitry::Print()
 {
-	copy(l2.begin(), l2.end(), ostream_iterator<string>(cout, " "));
+	for (list<string>::const_iterator it = l2.begin(); it != l2.end(); ++it) {
+		cout << *it << " ";
+	}
 }
 Dmitry::~Dmitry(){
-	l2.resize(0);
-	l2.clear();
 }
 
 DB::DB()
 {
-}
-DB DB::operator=(const DB& obj)
-{
-	if (this == &obj) {
-		return *this;
-	}
-	a = obj.a;
-	return *this;
 }
 void DB::add(Kladovshikov* b)
 {
@@ -56,18 +74,34 @@ void DB::print()
 {
 	for (int i = 0; i < 2; i++) {
 		a[i]->Print();
-		delete a[i];
 		
 	}
 }
-
+DB& DB::operator= (const DB& drob)
+{
+	if (this == &drob)
+	{
+		return *this;
+	}
+	if (a.size() != 0)
+	{
+		for (int i = 0; i < a.size(); i++)
+		{
+			delete a[i];
+		}
+		a.resize(0);
+	}
+	for (int i = 0; i < 2; i++) {
+		a.push_back(drob.a.at(i)->Copy());
+	}
+	return *this;
+}
 
 DB::~DB()
 {
-	/*
+
 	for (int i = 0; i < 2; i++) 
 	{
 		delete a[i];
 	}
-	*/
 }
